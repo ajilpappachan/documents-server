@@ -1,10 +1,13 @@
-import IServer from "./interfaces/IServer";
+import IServer from "../interfaces/IServer";
 import express, { Application } from "express";
-import IRouter from "./interfaces/IRouter";
+import IRouter from "../interfaces/IRouter";
+import IDatabase from "../interfaces/IDatabase";
+import Database from "../database/Database";
 
 export default class Server implements IServer {
 	private _port: string;
 	private _app: Application;
+	private _database?: IDatabase;
 
 	constructor(port: string | number) {
 		this._port = port.toString();
@@ -14,6 +17,10 @@ export default class Server implements IServer {
 	public AddRouter = (router: IRouter): void => {
 		this._app.use(router.BaseUrl, router.Router);
 		router.Initialize();
+	};
+
+	public AddDatabase = (database: IDatabase): void => {
+		this._database = database;
 	};
 
 	public Listen = (): void => {
