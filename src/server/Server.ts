@@ -8,9 +8,11 @@ export default class Server implements IServer {
 	private _app: Application;
 	private _database?: IDatabase;
 
-	constructor(port: string | number) {
+	constructor(port: string | number, staticFolder?: string) {
 		this._port = port.toString();
 		this._app = express();
+
+		staticFolder && this._app.use(express.static(staticFolder));
 	}
 
 	public AddRouter = (router: IRouter): void => {

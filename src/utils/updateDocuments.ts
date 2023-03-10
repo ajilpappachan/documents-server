@@ -34,7 +34,7 @@ const getDocuments = (): IDocument[] => {
 			for (const document of documents) {
 				const documentData: IDocument = {
 					id: uuid(),
-					name: path.parse(document).name,
+					name: `${path.parse(document).name}${path.parse(document).ext}`,
 					type: type,
 					category: category,
 				};

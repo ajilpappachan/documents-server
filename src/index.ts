@@ -8,7 +8,7 @@ import Database from "./database/Database";
 
 dotenv.config();
 
-const server: IServer = new Server(process.env.PORT || 8000);
+const server: IServer = new Server(process.env.PORT || 8000, "documents");
 const database: IDatabase = new Database(process.env.DATABASEURL);
 const router: IRouter = new BaseRouter("/", database);
 
