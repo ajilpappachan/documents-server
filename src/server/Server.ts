@@ -2,7 +2,6 @@ import IServer from "../interfaces/IServer";
 import express, { Application } from "express";
 import IRouter from "../interfaces/IRouter";
 import IDatabase from "../interfaces/IDatabase";
-import Database from "../database/Database";
 
 export default class Server implements IServer {
 	private _port: string;

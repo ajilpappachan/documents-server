@@ -1,4 +1,5 @@
 import { Request, Response, Router } from "express";
+import { v4 as uuid } from "uuid";
 import IDocument from "../interfaces/common/IDocument";
 import IDocumentData from "../interfaces/common/IDocumentData";
 import IDatabase from "../interfaces/IDatabase";
@@ -37,8 +38,14 @@ export default class BaseRouter implements IRouter {
 			const documents = (
 				await this._database.FindAllDocuments()
 			).map<IDocument>((item) => this.filterDocumentData(item));
-			const types = await this._database.GetTypes();
-			const categories = await this._database.GetCategories();
+			const types = (await this._database.GetTypes()).map((item) => ({
+				id: uuid(),
+				value: item,
+			}));
+			const categories = (await this._database.GetCategories()).map((item) => ({
+				id: uuid(),
+				value: item,
+			}));
 			const documentData: IDocumentData = {
 				types,
 				categories,
