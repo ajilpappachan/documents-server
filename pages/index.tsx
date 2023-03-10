@@ -1,7 +1,12 @@
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Stack from "@mui/material/Stack";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { GetServerSideProps } from "next";
-import React, { useState } from "react";
-import Select from "../components/Select";
+import React from "react";
+import Form from "../components/Form";
 import IDocumentData from "../src/interfaces/common/IDocumentData";
 
 interface indexProps {
@@ -9,57 +14,33 @@ interface indexProps {
 	documentData: IDocumentData;
 }
 
-const index = ({ backendUrl, documentData }: indexProps) => {
-	const [type, setType] = useState("");
-	const [category, setCategory] = useState("");
-	const [document, setDocument] = useState("");
+const darkTheme = createTheme({
+	palette: {
+		mode: "dark",
+	},
+});
 
+const index = ({ backendUrl, documentData }: indexProps) => {
 	return (
-		<div>
-			<h1>Documents</h1>
-			<form
-				action={
-					new URL(
-						`${type || "null"}/${category || "null"}/${document || "null"}`,
-						backendUrl
-					).href
-				}
-			>
-				<Select
-					id="type"
-					name="Type"
-					values={documentData.types.map((item) => ({
-						key: item.id,
-						value: item.value,
-					}))}
-					onChange={setType}
-				/>
-				<Select
-					id="category"
-					name="Category"
-					values={documentData.categories.map((item) => ({
-						key: item.id,
-						value: item.value,
-					}))}
-					onChange={setCategory}
-				/>
-				<Select
-					id="document"
-					name="Document"
-					values={documentData.documents
-						.filter((item) => item.type === type && item.category === category)
-						.map((item) => ({
-							key: item.id,
-							value: item.name,
-						}))}
-					disabled={!type || !category}
-					onChange={setDocument}
-				/>
-				<button disabled={!document} type="submit">
-					Download
-				</button>
-			</form>
-		</div>
+		<ThemeProvider theme={darkTheme}>
+			<Container>
+				<Box
+					sx={{
+						height: "100vh",
+						display: "flex",
+						alignItems: "center",
+						justifyContent: "center",
+					}}
+				>
+					<Stack spacing={5} textAlign="center" maxWidth={"sm"}>
+						<Typography variant="h2" component={"h1"} color="white">
+							Documents
+						</Typography>
+						<Form backendUrl={backendUrl} documentData={documentData} />
+					</Stack>
+				</Box>
+			</Container>
+		</ThemeProvider>
 	);
 };
 

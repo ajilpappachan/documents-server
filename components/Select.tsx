@@ -1,3 +1,7 @@
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import React, { useState } from "react";
 
 interface SelectProps {
@@ -8,35 +12,39 @@ interface SelectProps {
 	onChange?: (value: string) => void;
 }
 
-const Select = ({ id, name, values, disabled, onChange }: SelectProps) => {
+const SelectComponent = ({
+	id,
+	name,
+	values,
+	disabled,
+	onChange,
+}: SelectProps) => {
 	const [value, setValue] = useState("");
 
-	const handleChange = (e: React.FormEvent<HTMLSelectElement>) => {
-		setValue(e.currentTarget.value);
-		onChange && onChange(e.currentTarget.value);
+	const handleChange = (e: SelectChangeEvent) => {
+		setValue(e.target.value);
+		onChange && onChange(e.target.value);
 	};
 
 	return (
-		<div>
-			<label htmlFor={id}>{name}</label>
-			<select
+		<FormControl fullWidth>
+			<InputLabel id={`${id}-label`}>{name}</InputLabel>
+			<Select
 				disabled={disabled}
-				name={id}
+				labelId={`${id}-label`}
+				label={name}
 				id={id}
 				value={value}
 				onChange={handleChange}
 			>
-				<option hidden disabled value="">
-					-- Select --
-				</option>
 				{values.map((item) => (
-					<option key={item.key} value={item.value}>
+					<MenuItem key={item.key} value={item.value}>
 						{item.value}
-					</option>
+					</MenuItem>
 				))}
-			</select>
-		</div>
+			</Select>
+		</FormControl>
 	);
 };
 
-export default Select;
+export default SelectComponent;
