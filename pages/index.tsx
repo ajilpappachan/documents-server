@@ -29,8 +29,8 @@ const index = ({ backendUrl, documentData }: indexProps) => {
 					id="type"
 					name="Type"
 					values={documentData.types.map((item) => ({
-						key: item,
-						value: item,
+						key: item.id,
+						value: item.value,
 					}))}
 					onChange={setType}
 				/>
@@ -38,8 +38,8 @@ const index = ({ backendUrl, documentData }: indexProps) => {
 					id="category"
 					name="Category"
 					values={documentData.categories.map((item) => ({
-						key: item,
-						value: item,
+						key: item.id,
+						value: item.value,
 					}))}
 					onChange={setCategory}
 				/>
