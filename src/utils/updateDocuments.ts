@@ -13,7 +13,12 @@ const getDocuments = (): IDocument[] => {
 	const categorySet = new Set<string>();
 
 	const dir = path.join(__dirname, "../../documents/");
-	const types = ["jpg", "pdf"];
+
+	const types = readdirSync(dir, {
+		withFileTypes: true,
+	})
+		.filter((dirent) => dirent.isDirectory())
+		.map((dirent) => dirent.name);
 
 	for (const type of types) {
 		typeSet.add(type);
