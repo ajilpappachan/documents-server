@@ -32,7 +32,7 @@ const index = ({ backendUrl, documentData }: indexProps) => {
 						justifyContent: "center",
 					}}
 				>
-					<Stack spacing={5} textAlign="center" maxWidth={"sm"}>
+					<Stack spacing={5} textAlign="center" maxWidth={"md"}>
 						<Typography variant="h2" component={"h1"} color="white">
 							Documents
 						</Typography>
